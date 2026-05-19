@@ -1,4 +1,5 @@
 name: report-generator
 description: JSHook plugin for report-generator
 author: vmoranv
+source_repo: https://github.com/vmoranv/jshook_plugin_report_generator
 tags: ""
