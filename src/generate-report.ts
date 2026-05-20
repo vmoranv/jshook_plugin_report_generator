@@ -12,39 +12,43 @@ export const generateReportTool: ExtensionToolDefinition = {
   name: 'report_generate',
   description: 'Generate a CTF or security test report',
   schema: {
-    title: {
-      type: 'string',
-      description: 'Report title',
-    },
-    targets: {
-      type: 'array',
-      items: { type: 'string' },
-      description: 'List of targets tested',
-    },
-    findings: {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          title: { type: 'string' },
-          severity: { type: 'string', enum: ['critical', 'high', 'medium', 'low', 'info'] },
-          description: { type: 'string' },
-          evidence: { type: 'string' },
-          recommendation: { type: 'string' },
-        },
+    type: 'object',
+    properties: {
+      title: {
+        type: 'string',
+        description: 'Report title',
       },
-      description: 'List of findings',
+      targets: {
+        type: 'array',
+        items: { type: 'string' },
+        description: 'List of targets tested',
+      },
+      findings: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            title: { type: 'string' },
+            severity: { type: 'string', enum: ['critical', 'high', 'medium', 'low', 'info'] },
+            description: { type: 'string' },
+            evidence: { type: 'string' },
+            recommendation: { type: 'string' },
+          },
+        },
+        description: 'List of findings',
+      },
+      format: {
+        type: 'string',
+        enum: ['markdown', 'json', 'html'],
+        description: 'Output format',
+        default: 'markdown',
+      },
+      outputPath: {
+        type: 'string',
+        description: 'Output file path',
+      },
     },
-    format: {
-      type: 'string',
-      enum: ['markdown', 'json', 'html'],
-      description: 'Output format',
-      default: 'markdown',
-    },
-    outputPath: {
-      type: 'string',
-      description: 'Output file path',
-    },
+    required: ['title', 'targets', 'findings'],
   },
   handler: async (args, _ctx) => {
     try {
